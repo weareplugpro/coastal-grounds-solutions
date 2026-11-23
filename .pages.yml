@@ -1,0 +1,97 @@
+# Pages CMS (app.pagescms.org): the owner's editing dashboard.
+# Each save commits to GitHub, and Vercel rebuilds the live site in about a minute.
+# scripts/build.mjs applies these files to the pages.
+media:
+  input: public/images
+  output: /images
+  extensions: [jpg, jpeg, png, webp]
+
+content:
+  - name: business
+    label: Phone & hours
+    type: file
+    path: content/business.json
+    format: json
+    fields:
+      - name: phone
+        label: Phone number
+        type: string
+        required: true
+        description: "Changes the number on every page and on all call and text buttons. Example: (239) 887-8922"
+      - name: opens
+        label: Opens at
+        type: string
+        required: true
+        description: "Example: 7 AM"
+      - name: closes
+        label: Closes at
+        type: string
+        required: true
+        description: "Example: 5 PM. The site says you work every day. If the days change, text Adriel."
+
+  - name: home
+    label: Homepage top section
+    type: file
+    path: content/home.json
+    format: json
+    fields:
+      - name: hero_kicker
+        label: Small line above the headline
+        type: string
+        required: true
+      - name: hero_headline
+        label: Headline (white part)
+        type: string
+        required: true
+      - name: hero_highlight
+        label: Headline ending (green part)
+        type: string
+        description: "Shown in green right after the white part. Can be left empty."
+      - name: hero_subheadline
+        label: Sentence under the headline
+        type: text
+        required: true
+
+  - name: work
+    label: Latest work photos
+    type: file
+    path: content/work-photos.json
+    format: json
+    fields:
+      - name: photos
+        label: Photos
+        type: object
+        list: true
+        description: "6 photos show on the homepage and About page. The first one is the big one. Sideways photos look best."
+        fields:
+          - name: image
+            label: Photo
+            type: image
+            required: true
+            options:
+              extensions: [jpg, jpeg, png, webp]
+          - name: caption
+            label: Caption
+            type: string
+            description: "A few words about the job, e.g. New sod and rock beds in Venice"
+
+  - name: reviews
+    label: Google reviews
+    type: file
+    path: content/reviews.json
+    format: json
+    fields:
+      - name: reviews
+        label: Reviews
+        type: object
+        list: true
+        description: "Copy each review word for word from Google. They show on the homepage, About and Services pages."
+        fields:
+          - name: name
+            label: Customer name
+            type: string
+            required: true
+          - name: review
+            label: Review text
+            type: text
+            required: true
